@@ -1,0 +1,31 @@
+/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+.toolbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+
+  img {
+    margin: 0 16px;
+  }
+}
+
+.nav {
+  position: absolute;
+  right: 15px;
+
+  a {
+    margin: 0 5px;
+  }
+}
