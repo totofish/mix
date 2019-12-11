@@ -1,6 +1,6 @@
 # Mix Project
 
-測試修改使用 Angular CLI 來同時支持 angular 以及 vue 在同一時間的編譯。先聲明此作法不應該用於實際專案上，畢竟一個網頁同時需要載入 angular、vue 兩套 framework 實在是肥啊！如果真有此需求是不是應該回頭檢視一下為啥把網站搞成這樣...
+測試修改使用 Angular CLI 產生的專案來同時支持 angular 以及 vue 在同一時間的編譯。先聲明此作法不應該用於實際專案上，畢竟一個網頁同時需要載入 angular、vue 兩套 framework 實在是肥啊！如果真有此需求是不是應該回頭檢視一下為啥把網站搞成這樣...
 
 ## 如何於 Angular CLI 專案中設置支持 vue
 
