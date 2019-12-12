@@ -4,11 +4,17 @@
 }
 
 .nav {
+  a {
+    text-decoration-line: none;
+  }
   a:active,
   a:visited {
     color: white;
   }
   a:hover {
     color: #dadada;
+  }
+  a.active {
+    text-decoration-line: underline;
   }
 }

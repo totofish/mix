@@ -11,16 +11,61 @@
 yarn add @angular-builders/custom-webpack -D
 ```
 
-- 安裝 vue 所需的相關 package，**vue-loader**、**vue-template-compiler**、**css-loader**
+- 安裝 vue 所需的相關 package，**vue-loader**、**vue-template-compiler**、**css-loader**、**vue**、**vue-router**。
 
 ```sh
 yarn add vue-loader vue-template-compiler css-loader -D
 yarn add vue vue-router
 ```
 
-- 創建 **extra-webpack.config.js** 並設定所需[配置](extra-webpack.config.js)。
+- 創建 [extra-webpack.config.js](extra-webpack.config.js) 並設定所需配置。最重要的步驟是將 ng 處理 css 的 rule 加入排除處理所有 `.vue` 的樣式，轉交由自定義 rule 來處理。
+```js
+// 尋找 postcss-loader 設定與修改與 css 相關之 rules
+const postcssLoader = config.module.rules.reduce((result, rule) => {
+  // 找出 postcss-loader 設定，目的是使用 ng cli 相同的設定
+  if (rule.exclude && rule.test.test('.scss')) {
+    result = rule.use.filter(loader => loader.loader === 'postcss-loader')[0];
+  }
+  // 排除所有針對來源 .vue 的處理
+  if (
+    rule.exclude && (
+      rule.test.test('.css') ||
+      rule.test.test('.scss') ||
+      rule.test.test('.less') ||
+      rule.test.test('.styl')
+  )) {
+    rule.exclude = [ ...rule.exclude, /\.vue.(css|s[ac]ss)$/ ];
+  };
 
-- 於 vue 檔案夾下創建 **vue-shim.d.ts**，讓 .ts 中能識別 .vue 的文件類型
+  return result;
+}, 'postcss-loader');
+
+
+// 加入處理 vue rules
+config.module.rules.push(
+  // vue-loader
+  {
+    test: /\.vue$/,
+    loader: 'vue-loader'
+  },
+  // 只針對 .vue 來源之 style 處理
+  {
+  test: /\.(css|s[ac]ss)$/,
+  include: [ /\.vue.(css|s[ac]ss)$/ ],
+  use: [
+    'vue-style-loader',
+    'css-loader',
+    postcssLoader,
+    'sass-loader'
+  ]
+  }
+);
+config.plugins.push(
+  new VueLoaderPlugin()
+);
+```
+
+- 於 vue 檔案夾下創建 [vue-shim.d.ts](projects/app/src/vue/vue-shim.d.ts)，讓 .ts 能識別 .vue 的文件類型
 
 ```js
 declare module "*.vue" {
@@ -29,14 +74,8 @@ declare module "*.vue" {
 }
 ```
 
-## 問題
+- 完成，直接執行就能於專案中使用 2 種 framework
 
-由於 angular 定義轉譯 scss 的 webpack 設置無法直接累加上 `vue-style-loader`，目前想到的解法是另外定義 **v-css**、**v-sass**、**v-scss** 類型來與 angular 執行不同的轉譯，缺點就是需要於 `<style>` 中需明確定義 **lang** 設定。
-
-```html
-<style lang="v-css"></style>
-<style lang="v-scss"></style>
-<style lang="v-ssss"></style>
+```sh
+yarn start
 ```
-
-另外 IDE 編輯器因此無法辨認 `v-css`、`v-scss`、`v-sass`，統一都會辨識為 css，使用特定 sass 相關寫法都會出現編輯器警告。

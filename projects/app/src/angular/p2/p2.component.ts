@@ -1,14 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-p2',
-  templateUrl: './p2.component.html'
+  template: '<span>P2</span>',
+  styles: ['span { font-weight: 900; }']
 })
-export class P2Component implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
-  }
-
-}
+export class P2Component {}

@@ -1,15 +1,22 @@
-<style lang="v-scss" scoped>
+<style lang="scss" scoped>
   .toolbar {
     background-color: #f6f6f6;
     color: #35495d;
+    flex: 1;
   }
   .nav {
+    a {
+      text-decoration-line: none;
+    }
     a:active,
     a:visited {
       color: #35495d;
     }
     a:hover {
       color: #547596;
+    }
+    a.active {
+      text-decoration-line: underline;
     }
   }
 </style>
@@ -27,10 +34,16 @@
     </span>
 
     <span class="nav">
-      <router-link to="/p1">
+      <router-link
+        active-class="active"
+        to="/p1"
+      >
         P1
       </router-link>
-      <router-link to="/p2">
+      <router-link
+        active-class="active"
+        to="/p2"
+      >
         P2
       </router-link>
     </span>
