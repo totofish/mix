@@ -31,10 +31,10 @@ const postcssLoader = config.module.rules.reduce((result, rule) => {
     if (rule.test.test('.css') || rule.test.test('.scss')) {
       rule.exclude = [ ...rule.exclude, /\.vue.(css|s[ac]ss)$/ ];
     }
-    if (rule.exclude && rule.test.test('.less')) {
+    if (rule.test.test('.less')) {
       rule.exclude = [ ...rule.exclude, /\.vue.less$/ ];
     }
-    if (rule.exclude && rule.test.test('.styl')) {
+    if (rule.test.test('.styl')) {
       rule.exclude = [ ...rule.exclude, /\.vue.styl(us)?$/ ];
     }
   };
