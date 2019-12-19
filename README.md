@@ -1,5 +1,7 @@
 # Mix Project
 
+![Mix](materials/mix.png "Mix")
+
 測試修改使用 Angular CLI 產生的專案來同時支持 angular、react 以及 vue 在同一時間的編譯。先聲明此作法不應該用於實際專案上，畢竟一個網頁同時需要載入 angular、react、vue 三套 framework 實在是肥啊！如果真有此需求是不是應該回頭檢視一下為啥把網站搞成這樣...
 
 至於如果使用 `ng g application <name>` 分別各自只包含單一 framework 會是稍微合理的做法，但實際 build size 是否為各框架的最佳壓縮尺寸則自行判斷，但如果想追求最小尺寸則推薦使用 [preact](https://github.com/preactjs/preact)。
