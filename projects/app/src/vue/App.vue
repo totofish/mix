@@ -2,12 +2,8 @@
   .toolbar {
     background-color: #f6f6f6;
     color: #35495d;
-    flex: 1;
   }
   .nav {
-    a {
-      text-decoration-line: none;
-    }
     a:active,
     a:visited {
       color: #35495d;

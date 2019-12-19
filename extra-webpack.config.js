@@ -14,7 +14,11 @@ module.exports = config => {
     // 排除所有針對來源 .vue 的處理
     if (rule.exclude) {
       if (rule.test.test('.css') || rule.test.test('.scss')) {
-        rule.exclude = [ ...rule.exclude, /\.vue.(css|s[ac]ss)$/ ];
+        rule.exclude = [
+          ...rule.exclude,
+          /\.vue.(css|s[ac]ss)$/,
+          /\.module\.(css|s[ac]ss)$/i
+        ];
       }
       if (rule.test.test('.less')) {
         rule.exclude = [ ...rule.exclude, /\.vue.less$/ ];
@@ -37,8 +41,7 @@ module.exports = config => {
     },
     // 只針對 .vue 來源之 style 處理
     {
-      test: /\.(css|s[ac]ss)$/,
-      include: [ /\.vue.(css|s[ac]ss)$/ ],
+      test: /\.vue.(css|s[ac]ss)$/,
       use: [
         'vue-style-loader',
         'css-loader',
@@ -46,8 +49,7 @@ module.exports = config => {
         'sass-loader'
       ]
     }, {
-      test: /\.styl(us)?$/,
-      include: [ /\.vue.styl(us)?$/ ],
+      test: /\.vue.styl(us)?$/,
       use: [
         'vue-style-loader',
         'css-loader',
@@ -55,8 +57,7 @@ module.exports = config => {
         'stylus-loader'
       ]
     }, {
-      test: /\.less$/,
-      include: [ /\.vue.less$/ ],
+      test: /\.vue.less$/,
       use: [
         'vue-style-loader',
         'css-loader',
@@ -68,6 +69,25 @@ module.exports = config => {
   config.plugins.push(
     new VueLoaderPlugin()
   );
+
+
+  // 加入處理 React CSS Modules rule
+  config.module.rules.push({
+    test: /\.module\.(css|s[ac]ss)$/i,
+    use: [
+      'style-loader',
+      {
+        loader: 'css-loader',
+        options: {
+          modules: {
+            localIdentName: '[local]-[hash:base64:5]',
+          }
+        }
+      },
+      postcssLoader,
+      'sass-loader'
+    ],
+  });
 
 
   return config;

@@ -1,17 +1,21 @@
 .toolbar {
-  background-color: #1976d2;
-  color: white;
+  background-color: #282c34;
+  color: #61dafb;
 }
 
 .nav {
   a:active,
   a:visited {
-    color: white;
+    color: #61dafb;
   }
   a:hover {
-    color: #dadada;
+    color: #40bbdc;
   }
   a.active {
     text-decoration-line: underline;
   }
+}
+
+.page {
+  font-weight: 900;
 }

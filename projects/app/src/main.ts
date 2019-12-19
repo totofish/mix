@@ -5,6 +5,7 @@ import { AngularModule } from './angular/angular.module';
 import { environment } from './environments/environment';
 
 import { VueApp } from './vue';
+import { ReactApp } from './react';
 
 // Angular
 if (environment.production) {
@@ -17,3 +18,6 @@ platformBrowserDynamic().bootstrapModule(AngularModule)
 
 // Run Vue App
 VueApp();
+
+// Run React App
+ReactApp();
